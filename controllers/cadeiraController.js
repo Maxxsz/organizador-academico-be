@@ -39,6 +39,48 @@ exports.getCadeiras = async (req, res) => {
     }
 };
 
+exports.getCadeiraBySemestreId = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await pool.query(
+            "SELECT * FROM Cadeira WHERE semestre.id = $1 AND usuario_id = $2",
+            [req.semestre_id, req.user.id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                error: "Cadeira não encontrada.",
+            });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getCadeiraById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await pool.query(
+            "SELECT * FROM Cadeira WHERE id = $1 AND usuario_id = $2",
+            [id, req.user.id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                error: "Cadeira não encontrada.",
+            });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 exports.updateCadeira = async (req, res) => {
     const { id } = req.params;
     const { nome, codigo } = req.body;
