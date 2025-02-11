@@ -11,10 +11,13 @@ router.post(
 router.get(
     "/semestre/:semestre_id",
     authenticateToken,
-    cadeiraController.getCadeiras
+    cadeiraController.getCadeiraBySemestreId
 );
 
+router.get("/:id", authenticateToken, cadeiraController.getCadeiraById);
+
 router.put("/:id", authenticateToken, cadeiraController.updateCadeira);
+
 router.delete("/:id", authenticateToken, cadeiraController.deleteCadeira);
 
 module.exports = router;
