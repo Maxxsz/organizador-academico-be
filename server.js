@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const authRouter = require("./routes/authRoutes");
 const cursoRouter = require("./routes/cursoRoutes");
 const semestreRouter = require("./routes/semestreRoutes");
@@ -8,6 +9,13 @@ const authenticateToken = require("./middlewares/authMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(
+    cors({
+        origin: "*",
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 
