@@ -40,21 +40,21 @@ exports.getCadeiras = async (req, res) => {
 };
 
 exports.getCadeiraBySemestreId = async (req, res) => {
-    const { id } = req.params;
+    const { semestre_id } = req.params; 
 
     try {
         const result = await pool.query(
-            "SELECT * FROM Cadeira WHERE semestre.id = $1 AND usuario_id = $2",
-            [req.semestre_id, req.user.id]
+            "SELECT * FROM Cadeira WHERE semestre_id = $1 AND usuario_id = $2", 
+            [semestre_id, req.user.id]
         );
 
         if (result.rows.length === 0) {
             return res.status(404).json({
-                error: "Cadeira não encontrada.",
+                error: "Nenhuma cadeira encontrada para este semestre.",
             });
         }
 
-        res.json(result.rows[0]);
+        res.json(result.rows); 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
