@@ -12,6 +12,7 @@ const anotacaoRouter = require("./routes/anotacaoRoutes");
 const planoEstudoRouter = require("./routes/planoEstudoRoutes");
 const tarefaRouter = require("./routes/tarefaRoutes");
 const avaliacaoRouter = require("./routes/avaliacaoRoutes");
+const documentoRouter = require("./routes/documentoRoutes");
 
 const authenticateToken = require("./middlewares/authMiddleware");
 
@@ -39,6 +40,7 @@ app.use("/anotacoes", authenticateToken, anotacaoRouter);
 app.use("/planos-estudo", authenticateToken, planoEstudoRouter);
 app.use("/tarefas", authenticateToken, tarefaRouter);
 app.use("/avaliacoes", authenticateToken, avaliacaoRouter);
+app.use("/documentos", authenticateToken, documentoRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
