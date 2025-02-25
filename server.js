@@ -7,6 +7,11 @@ const cadeiraRouter = require("./routes/cadeiraRoutes");
 const eventoRouter = require("./routes/eventoRoutes");
 const calendarioRouter = require("./routes/calendarioRoutes");
 const disciplinaRouter = require("./routes/disciplinaRoutes");
+const cadernoRouter = require("./routes/cadernoRoutes");
+const anotacaoRouter = require("./routes/anotacaoRoutes");
+const planoEstudoRouter = require("./routes/planoEstudoRoutes");
+const tarefaRouter = require("./routes/tarefaRoutes");
+const avaliacaoRouter = require("./routes/avaliacaoRoutes");
 
 const authenticateToken = require("./middlewares/authMiddleware");
 
@@ -29,6 +34,11 @@ app.use("/cadeiras", authenticateToken, cadeiraRouter);
 app.use("/eventos", authenticateToken, eventoRouter);
 app.use("/calendarios", authenticateToken, calendarioRouter);
 app.use("/disciplinas", authenticateToken, disciplinaRouter);
+app.use("/cadernos", authenticateToken, cadernoRouter);
+app.use("/anotacoes", authenticateToken, anotacaoRouter);
+app.use("/planos-estudo", authenticateToken, planoEstudoRouter);
+app.use("/tarefas", authenticateToken, tarefaRouter);
+app.use("/avaliacoes", authenticateToken, avaliacaoRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

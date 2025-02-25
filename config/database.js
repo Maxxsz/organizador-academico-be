@@ -14,6 +14,4 @@ const pool = new Pool({
     },
 });
 
-const connectionString = `postgres://${userName}:${password}@${host}:${port}/${databaseName}`;
-console.log(connectionString);
 module.exports = pool;
