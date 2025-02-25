@@ -88,7 +88,6 @@ exports.updateDocumento = async (req, res) => {
 
 exports.uploadDocumento = async (req, res) => {
     const { caderno_id } = req.params;
-    const { description } = req.body;
 
     try {
         // Verifica se o caderno pertence ao usuário logado
@@ -108,10 +107,13 @@ exports.uploadDocumento = async (req, res) => {
             return res.status(400).json({ error: "Nenhum arquivo enviado." });
         }
 
+        // Obtém o tipo do arquivo a partir da extensão
+        const tipo = req.file.originalname.split(".").pop().toLowerCase(); // Ex: "pdf", "jpg", etc.
+
         // Salva o documento no banco de dados
         const result = await pool.query(
             "INSERT INTO Documento (nome, tipo, dataUpload, caderno_id) VALUES ($1, $2, $3, $4) RETURNING *",
-            [req.file.path, req.file.format, new Date(), caderno_id]
+            [req.file.path, tipo, new Date(), caderno_id]
         );
 
         res.status(201).json(result.rows[0]);
