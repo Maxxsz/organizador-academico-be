@@ -1,6 +1,6 @@
 const pool = require("../config/database");
 
-eexports.createEvento = async (req, res) => {
+exports.createEvento = async (req, res) => {
     const { semestre_id } = req.params;
     const { titulo, descricao, data } = req.body;
 
