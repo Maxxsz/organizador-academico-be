@@ -6,6 +6,7 @@ const semestreRouter = require("./routes/semestreRoutes");
 const cadeiraRouter = require("./routes/cadeiraRoutes");
 const eventoRouter = require("./routes/eventoRoutes");
 const calendarioRouter = require("./routes/calendarioRoutes");
+const disciplinaRouter = require("./routes/disciplinaRoutes");
 
 const authenticateToken = require("./middlewares/authMiddleware");
 
@@ -27,6 +28,7 @@ app.use("/semestres", authenticateToken, semestreRouter);
 app.use("/cadeiras", authenticateToken, cadeiraRouter);
 app.use("/eventos", authenticateToken, eventoRouter);
 app.use("/calendarios", authenticateToken, calendarioRouter);
+app.use("/disciplinas", authenticateToken, disciplinaRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
