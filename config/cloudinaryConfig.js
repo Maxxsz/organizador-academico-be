@@ -12,13 +12,10 @@ cloudinary.config({
 // Configuração do Multer para upload de arquivos
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: (req, file) => {
-        return {
-            folder: "documentos", // Pasta no Cloudinary
-            resource_type: file.mimetype.startsWith("image") ? "image" : "raw", // Define o tipo de recurso
-            public_id: file.originalname.split(".")[0], // Nome do arquivo sem extensão
-            flags: "inline", // Força o navegador a exibir o arquivo (em vez de baixá-lo)
-        };
+    params: {
+        folder: "documentos", // Pasta no Cloudinary onde os arquivos serão salvos
+        allowed_formats: ["jpg", "jpeg", "png", "pdf"], // Formatos de arquivo permitidos
+        resource_type: "auto", // Permite uploads de qualquer tipo de arquivo
     },
 });
 
