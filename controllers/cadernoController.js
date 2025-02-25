@@ -71,15 +71,26 @@ exports.updateCaderno = async (req, res) => {
 };
 
 exports.ensureCadernoExists = async (req, res) => {
+    const { cadeira_id } = req.params;
+
     try {
-        const { cadeira_id } = req.params;
+        // Verifica se o caderno já existe para essa cadeira
+        const cadernoExistente = await pool.query(
+            "SELECT * FROM Caderno WHERE cadeira_id = $1",
+            [cadeira_id]
+        );
 
-        // Verifica se já existe um caderno para essa cadeira
-        let caderno = await Caderno.findOne({ where: { cadeira_id } });
+        let caderno;
 
-        // Se não existir, cria um novo
-        if (!caderno) {
-            caderno = await Caderno.create({ cadeira_id });
+        // Se não existir, cria um novo caderno
+        if (cadernoExistente.rows.length === 0) {
+            const result = await pool.query(
+                "INSERT INTO Caderno (cadeira_id) VALUES ($1) RETURNING *",
+                [cadeira_id]
+            );
+            caderno = result.rows[0];
+        } else {
+            caderno = cadernoExistente.rows[0];
         }
 
         res.status(200).json(caderno);
