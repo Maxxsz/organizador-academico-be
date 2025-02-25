@@ -10,9 +10,11 @@ exports.createCaderno = async (req, res) => {
         );
 
         if (cadeira.rows.length === 0) {
-            return res.status(403).json({
-                error: "Cadeira não encontrada ou sem permissão para acessá-la.",
-            });
+            return res
+                .status(403)
+                .json({
+                    error: "Cadeira não encontrada ou sem permissão para acessá-la.",
+                });
         }
 
         const result = await pool.query(
@@ -27,10 +29,11 @@ exports.createCaderno = async (req, res) => {
 };
 
 exports.getCadernos = async (req, res) => {
+    const { cadeira_id } = req.params;
     try {
         const result = await pool.query(
-            "SELECT * FROM Caderno WHERE cadeira_id IN (SELECT id FROM Cadeira WHERE usuario_id = $1)",
-            [req.user.id]
+            "SELECT * FROM Caderno WHERE cadeira_id = $1 AND cadeira_id IN (SELECT id FROM Cadeira WHERE usuario_id = $2)",
+            [cadeira_id, req.user.id]
         );
         res.json(result.rows);
     } catch (error) {
@@ -49,9 +52,11 @@ exports.updateCaderno = async (req, res) => {
         );
 
         if (caderno.rows.length === 0) {
-            return res.status(403).json({
-                error: "Caderno não encontrado ou sem permissão para editá-lo.",
-            });
+            return res
+                .status(403)
+                .json({
+                    error: "Caderno não encontrado ou sem permissão para editá-lo.",
+                });
         }
 
         const result = await pool.query(
@@ -75,9 +80,11 @@ exports.deleteCaderno = async (req, res) => {
         );
 
         if (caderno.rows.length === 0) {
-            return res.status(403).json({
-                error: "Caderno não encontrado ou sem permissão para deletá-lo.",
-            });
+            return res
+                .status(403)
+                .json({
+                    error: "Caderno não encontrado ou sem permissão para deletá-lo.",
+                });
         }
 
         await pool.query("DELETE FROM Caderno WHERE id = $1", [id]);

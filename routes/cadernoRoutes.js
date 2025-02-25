@@ -8,7 +8,11 @@ router.post(
     authenticateToken,
     cadernoController.createCaderno
 );
-router.get("/", authenticateToken, cadernoController.getCadernos);
+router.get(
+    "/cadeira/:cadeira_id",
+    authenticateToken,
+    cadernoController.getCadernos
+);
 router.put("/:id", authenticateToken, cadernoController.updateCaderno);
 router.delete("/:id", authenticateToken, cadernoController.deleteCaderno);
 
