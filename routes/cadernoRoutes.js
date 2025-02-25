@@ -8,6 +8,13 @@ router.post(
     authenticateToken,
     cadernoController.createCaderno
 );
+
+router.post(
+    "/cadeira/:cadeira_id/ensure",
+    authenticateToken,
+    cadernoController.ensureCadernoExists
+);
+
 router.get(
     "/cadeira/:cadeira_id",
     authenticateToken,

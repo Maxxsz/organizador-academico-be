@@ -70,6 +70,25 @@ exports.updateCaderno = async (req, res) => {
     }
 };
 
+exports.ensureCadernoExists = async (req, res) => {
+    try {
+        const { cadeira_id } = req.params;
+
+        // Verifica se já existe um caderno para essa cadeira
+        let caderno = await Caderno.findOne({ where: { cadeira_id } });
+
+        // Se não existir, cria um novo
+        if (!caderno) {
+            caderno = await Caderno.create({ cadeira_id });
+        }
+
+        res.status(200).json(caderno);
+    } catch (error) {
+        console.error("Erro ao garantir caderno:", error);
+        res.status(500).json({ error: "Erro ao garantir caderno." });
+    }
+};
+
 exports.deleteCaderno = async (req, res) => {
     const { id } = req.params;
 
