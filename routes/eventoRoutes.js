@@ -8,7 +8,11 @@ router.post(
     authenticateToken,
     eventoController.createEvento
 );
-router.get("/", authenticateToken, eventoController.getEventos);
+router.get(
+    "/semestre/:semestre_id",
+    authenticateToken,
+    eventoController.getEventos
+);
 router.put("/:id", authenticateToken, eventoController.updateEvento);
 router.delete("/:id", authenticateToken, eventoController.deleteEvento);
 

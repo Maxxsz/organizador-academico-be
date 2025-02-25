@@ -30,10 +30,12 @@ exports.createEvento = async (req, res) => {
 };
 
 exports.getEventos = async (req, res) => {
+    const { semestre_id } = req.params;
+
     try {
         const result = await pool.query(
-            "SELECT * FROM Evento WHERE calendario_id IN (SELECT id FROM Calendario WHERE cadeira_id IN (SELECT id FROM Cadeira WHERE usuario_id = $1))",
-            [req.user.id]
+            "SELECT * FROM Evento WHERE calendario_id IN (SELECT id FROM Calendario WHERE cadeira_id IN (SELECT id FROM Cadeira WHERE semestre_id = $1 AND usuario_id = $2))",
+            [semestre_id, req.user.id]
         );
         res.json(result.rows);
     } catch (error) {
