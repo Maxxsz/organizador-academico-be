@@ -8,7 +8,11 @@ router.post(
     authenticateToken,
     avaliacaoController.createAvaliacao
 );
-router.get("/", authenticateToken, avaliacaoController.getAvaliacoes);
+router.get(
+    "/cadeira/:cadeira_id",
+    authenticateToken,
+    avaliacaoController.getAvaliacoes
+);
 router.put("/:id", authenticateToken, avaliacaoController.updateAvaliacao);
 router.delete("/:id", authenticateToken, avaliacaoController.deleteAvaliacao);
 
