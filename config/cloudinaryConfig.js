@@ -9,15 +9,14 @@ cloudinary.config({
     api_secret: "5Igphh-85J30RmN9KXPxnywQlJg", // Segredo da API do Cloudinary
 });
 
+// Configuração do Multer para upload de arquivos
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: async (req, file) => ({
-        folder: "documentos",
-        format: file.originalname.split(".").pop(),
-        resource_type: "auto", // Permite arquivos de diferentes tipos (imagem, vídeo, raw)
-    }),
+    params: {
+        folder: "documentos", // Pasta no Cloudinary onde os arquivos serão salvos
+        allowed_formats: ["jpg", "jpeg", "png", "pdf"], // Formatos de arquivo permitidos
+    },
 });
-
 
 // Cria o middleware do Multer
 const upload = multer({ storage: storage });
