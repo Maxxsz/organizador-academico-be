@@ -17,6 +17,7 @@ const storage = new CloudinaryStorage({
             folder: "documentos", // Pasta no Cloudinary
             resource_type: file.mimetype.startsWith("image") ? "image" : "raw", // Define o tipo de recurso
             public_id: file.originalname.split(".")[0], // Nome do arquivo sem extensão
+            flags: "inline", // Força o navegador a exibir o arquivo (em vez de baixá-lo)
         };
     },
 });
