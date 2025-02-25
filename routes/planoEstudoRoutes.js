@@ -8,7 +8,11 @@ router.post(
     authenticateToken,
     planoEstudoController.createPlanoEstudo
 );
-router.get("/", authenticateToken, planoEstudoController.getPlanosEstudo);
+router.get(
+    "/cadeira/:cadeira_id",
+    authenticateToken,
+    planoEstudoController.getPlanosEstudo
+);
 router.put("/:id", authenticateToken, planoEstudoController.updatePlanoEstudo);
 router.delete(
     "/:id",

@@ -29,10 +29,11 @@ exports.createPlanoEstudo = async (req, res) => {
 };
 
 exports.getPlanosEstudo = async (req, res) => {
+    const { cadeira_id } = req.params;
     try {
         const result = await pool.query(
-            "SELECT * FROM PlanoEstudo WHERE cadeira_id IN (SELECT id FROM Cadeira WHERE usuario_id = $1)",
-            [req.user.id]
+            "SELECT * FROM PlanoEstudo WHERE cadeira_id = $1 AND cadeira_id IN (SELECT id FROM Cadeira WHERE usuario_id = $2)",
+            [cadeira_id, req.user.id]
         );
         res.json(result.rows);
     } catch (error) {
